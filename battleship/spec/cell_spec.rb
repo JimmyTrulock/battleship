@@ -20,4 +20,17 @@ describe Cell do
       expect(@cell.empty).to eq(true)
     end
   end
+
+  describe "#empty?" do
+    it "checks if cell is empty" do
+      expect(@cell.empty?).to eq(true)
+    end
+  end
+
+  describe "#place_ship" do
+    it "places ship in cell" do
+      expect(@cell.place_ship(@cruiser)).to eq(@cruiser)
+      expect(@cell.empty?).to eq(false)
+    end
+  end
 end
