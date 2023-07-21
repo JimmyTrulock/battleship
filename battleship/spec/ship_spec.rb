@@ -1,5 +1,6 @@
 require './lib/ship'
 
+
 describe Ship do
   before do 
   @cruiser = Ship.new("Cruiser", 3)

@@ -33,4 +33,14 @@ describe Cell do
       expect(@cell.empty?).to eq(false)
     end
   end
+
+  describe "#fired_upon?" do
+    it "checks if the cell has been fired upon" do
+      expect(@cell.fired_upon?).to eq(false)
+
+      @cell.fire_upon
+
+      expect(@cell.fired_upon?).to eq(true)
+    end
+  end
 end
