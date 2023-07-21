@@ -37,10 +37,23 @@ describe Cell do
   describe "#fired_upon?" do
     it "checks if the cell has been fired upon" do
       expect(@cell.fired_upon?).to eq(false)
-
+      
+      @cell.place_ship(@cruiser)
       @cell.fire_upon
 
       expect(@cell.fired_upon?).to eq(true)
+    end
+  end
+
+  describe "#fire_upon" do
+    it "can fire on a cell and damage a ship" do
+      @cell.place_ship(@cruiser)
+
+      expect(@cell.ship.health).to eq(3)
+
+      @cell.fire_upon
+
+      expect(@cell.ship.health).to eq(2)
     end
   end
 end

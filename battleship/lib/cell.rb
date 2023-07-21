@@ -22,10 +22,17 @@ class Cell
   def fired_upon?
    if @fired_upon == true
     true
+   end
+   @fired_upon
   end
 
-  # def fire_upon
-    
-  # end
+  def fire_upon
+    if @fired_upon == false
+      if @ship != nil
+        @ship.hit
+        @fired_upon = true
+      end
+    end
+  end
 end
 
