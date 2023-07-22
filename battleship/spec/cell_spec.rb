@@ -65,7 +65,6 @@ describe Cell do
       
       cell_1.fire_upon
       
-      # require 'pry';binding.pry
       expect(cell_1.render).to eq("M")
 
       cell_2.place_ship(@cruiser)
