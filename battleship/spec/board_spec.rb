@@ -11,11 +11,11 @@ describe Board do
     end
   end
 
-  # describe "#attribute" do
-  #   it "has attributes" do
-  #     expect(@board.cells).to eq({16})
-  #   end
-  # end
-
-  describe "#"
+  describe "#attribute" do
+    it "has attributes" do
+      @board.cells
+      # require 'pry';binding.pry
+      expect(@board.count).to eq(16)
+    end
+  end
 end
