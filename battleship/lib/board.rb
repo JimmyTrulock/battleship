@@ -81,8 +81,16 @@ class Board
 
   end
 
+  def overlaping?(coordinates)
+    if @cells.any?{|key, value| key == coordinates && value.empty == false}
+      true
+  else 
+    false
+  end
+end
+
   def valid_placement?(ship, coordinates)
-    if @cells.any?{|key, value| key == coordinate }
+    if overlaping?(coordinates) == false
       if coordinates.length == ship.length
         if ship.length == 3
           possible_cruiser.any? {|array| array == coordinates}
