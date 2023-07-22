@@ -1,13 +1,9 @@
 require './lib/cell'
 
 class Board
-  attr_accessor :cells
+  attr_accessor :cells, :possible_cruiser, :possible_sub
 
   def initialize
-    @cells = {}
-  end
-
-  def cells
     @cells = {
     "A1" => Cell.new("A1"),
     "A2" => Cell.new("A2"),
@@ -25,7 +21,55 @@ class Board
     "D2" => Cell.new("D2"),
     "D3" => Cell.new("D3"),
     "D4" => Cell.new("D4")
-    }
+  }
+    @possible_cruiser = [
+      ["A1","B1","C1"], 
+      ["B1","C1","D1"],
+      ["A2","B2","C2"],
+      ["B2","C2","D2"],
+      ["A3","B3","C3"],
+      ["B3","C3","D3"],
+      ["A4","B4","C4"],
+      ["B4","C4","D4"],
+      ["A1","A2","A3"],
+      ["B1","B2","B3"],
+      ["C1","C2","C3"],
+      ["D1","D2","D3"],
+      ["A2","A3","A4"],
+      ["B2","B3","B4"],
+      ["C2","C3","C4"],
+      ["D2","D3","D4"]
+    ]
+    @possible_sub = [
+      ["A1","A2"],
+      ["B1","B2"],
+      ["C1","C2"],
+      ["D1","D2"],
+      ["A2","A3"],
+      ["B2","B3"],
+      ["C2","C3"],
+      ["D2","D3"],
+      ["A3","A4"],
+      ["B3","B4"],
+      ["C3","C4"],
+      ["D3","D4"],
+      ["A1","B1"],
+      ["B1","C1"],
+      ["C1","D1"],
+      ["A2","B2"],
+      ["B2","C2"],
+      ["C2","D2"],
+      ["A3","B3"],
+      ["B3","C3"],
+      ["C3","D3"],
+      ["A4","B4"],
+      ["B4","C4"],
+      ["C4","D4"]
+    ]
+  end
+
+  def cells
+    @cells
   end
 
   def count
@@ -33,15 +77,34 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-    test = @cells.any?{|key, value| key == coordinate}
+    @cells.any?{|key, value| key == coordinate}
 
   end
 
-  def valid_placement?(ship, array)
-    if array.length == ship.length
-      true
-    else 
+  def valid_placement?(ship, coordinates)
+    if @cells.any?{|key, value| key == coordinate }
+      if coordinates.length == ship.length
+        if ship.length == 3
+          possible_cruiser.any? {|array| array == coordinates}
+        elsif ship.length == 2
+          possible_sub.any? {|array| array ==coordinates}
+        end
+      else 
+        false
+      end
+    else
       false
+    end
+end
+
+  def place(ship, coords)
+   coords.each do |coord|
+    @cells.each.any? do |key, value| 
+      if key == coord  
+        value.place_ship(ship)
+        
+        end
+      end
     end
   end
 end
