@@ -32,4 +32,9 @@ class Board
     @cells.size
   end
 
+  def valid_coordinate?(coordinate)
+    test = @cells.any?{|key, value| key == coordinate}
+
+  end
+
 end
