@@ -123,6 +123,7 @@ end
     row_5 = "D #{@cells["D1"].render(view)} #{@cells["D2"].render(view)} #{@cells["D3"].render(view)} #{@cells["D4"].render(view)} \n"
     
     @grid = row_1 + row_2 + row_3 + row_4 + row_5
+    puts @grid
     @grid
   end
 end
