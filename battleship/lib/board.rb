@@ -82,23 +82,27 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    
-    if coordinates.length == ship.length
-      if ship.length == 3
-        possible_cruiser.any? {|array| array == coordinates}
-      elsif ship.length == 2
-        possible_sub.any? {|array| array ==coordinates}
+    if @cells.any?{|key, value| key == coordinate }
+      if coordinates.length == ship.length
+        if ship.length == 3
+          possible_cruiser.any? {|array| array == coordinates}
+        elsif ship.length == 2
+          possible_sub.any? {|array| array ==coordinates}
+        end
+      else 
+        false
       end
-    else 
+    else
       false
     end
-  end
+end
 
   def place(ship, coords)
    coords.each do |coord|
     @cells.each.any? do |key, value| 
       if key == coord  
         value.place_ship(ship)
+        
         end
       end
     end
