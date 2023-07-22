@@ -37,4 +37,11 @@ class Board
 
   end
 
+  def valid_placement?(ship, array)
+    if array.length == ship.length
+      true
+    else 
+      false
+    end
+  end
 end
