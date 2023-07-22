@@ -1,9 +1,10 @@
 require './lib/cell'
 
 class Board
-  attr_accessor :cells, :possible_cruiser, :possible_sub
+  attr_accessor :cells, :possible_cruiser, :possible_sub, :grid
 
   def initialize
+    @grid = ""
     @cells = {
     "A1" => Cell.new("A1"),
     "A2" => Cell.new("A2"),
@@ -81,8 +82,16 @@ class Board
 
   end
 
+  def overlaping?(coordinates)
+    if @cells.any?{|key, value| key == coordinates && value.empty == false}
+      true
+  else 
+    false
+  end
+end
+
   def valid_placement?(ship, coordinates)
-    if @cells.any?{|key, value| key == coordinate }
+    if overlaping?(coordinates) == false
       if coordinates.length == ship.length
         if ship.length == 3
           possible_cruiser.any? {|array| array == coordinates}
@@ -92,19 +101,28 @@ class Board
       else 
         false
       end
-    else
-      false
     end
-end
+  end
 
   def place(ship, coords)
    coords.each do |coord|
     @cells.each.any? do |key, value| 
       if key == coord  
         value.place_ship(ship)
-        
+        value.render
         end
       end
     end
+  end
+
+  def render(view = false)
+    row_1 = " 1 2 3 4 \n"
+    row_2 = "A #{@cells["A1"].render(view)} #{@cells["A2"].render(view)} #{@cells["A3"].render(view)} #{@cells["A4"].render(view)} \n"
+    row_3 = "B #{@cells["B1"].render(view)} #{@cells["B2"].render(view)} #{@cells["B3"].render(view)} #{@cells["B4"].render(view)} \n"
+    row_4 = "C #{@cells["C1"].render(view)} #{@cells["C2"].render(view)} #{@cells["C3"].render(view)} #{@cells["C4"].render(view)} \n"
+    row_5 = "D #{@cells["D1"].render(view)} #{@cells["D2"].render(view)} #{@cells["D3"].render(view)} #{@cells["D4"].render(view)} \n"
+    
+    @grid = row_1 + row_2 + row_3 + row_4 + row_5
+    @grid
   end
 end

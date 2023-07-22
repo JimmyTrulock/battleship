@@ -1,5 +1,6 @@
 require './lib/board'
 require './lib/ship'
+require './lib/cell'
 
 describe Board do
   before do
@@ -65,6 +66,20 @@ describe Board do
       expect(cell_2.ship).to eq(@cruiser)
       expect(cell_3.ship).to eq(@cruiser)
       expect(cell_3.ship).to eq(cell_2.ship)
+    end
+  end
+
+  describe "#render" do
+    it "renders the board" do
+      expect(@board.render).to eq(" 1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      
+      expect(@board.render(true)).to eq(" 1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+
+      @board.place(@cruiser, ["B1", "C1", "D1"])
+
+      expect(@board.render(true)).to eq(" 1 2 3 4 \nA S S S . \nB S . . . \nC S . . . \nD S . . . \n")
     end
   end
 end
