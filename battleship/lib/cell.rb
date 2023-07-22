@@ -42,7 +42,7 @@ class Cell
       @status = "H"
     elsif @ship == nil && @fired_upon == true
       @status = "M"
-    elsif @ship != nil && view = true
+    elsif @ship != nil && view == true
       @status = "S"
     end
   @status
