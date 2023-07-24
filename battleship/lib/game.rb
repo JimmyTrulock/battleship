@@ -1,4 +1,4 @@
-require './lib/board'
+require './lib/board.rb'
 require './lib/ship'
 require './lib/cell'
 
@@ -16,12 +16,11 @@ class Game
     Enter p to play. Enter q to quit."
 
     answer = gets 
-      if answer == "p"
+      if answer == "p" || "P"
         puts "Ok! Let's play!"
-        @player_1.render(true)
-        @computer.render
+        game_placement
 
-      elsif answer == "q"
+      elsif answer == "q" || "Q"
         puts "Ok, see you next time."
       else 
         puts "Invalid command! Type p or q"
@@ -39,12 +38,45 @@ class Game
     C . . . .
     D . . . .
     Enter the squares for the Cruiser (3 spaces)"
-    cruiser_array = @computer.possible_cruiser.sample
+    player_placment = gets
+
+    if until valid_coordinate(player_placment) == true && valid_placement(player_placment) == true
+      @player_1.place(cruiser, player_placment)
+    else 
+      "Invalid squares, please select again"
+    end
+
+    "Enter the squares for the Sub (2 spaces)"
+
+    player_placment_2 = gets
+
+    if until valid_coordinate(player_placment_2) == true && valid_placement(player_placment_2) == true
+      @player_1.place(cruiser, player_placment_2)
+    else 
+      puts "Invalid squares, please select again"
+    end
+
+    cruiser_array = @computer.possible_cruiser.sample 
     sub_array = @computer.possible_sub.sample
 
     @computer.place(cruiser, cruiser_array)
+    until overlaping?(sub_array) == true
+      sub_array = @computer.possible_sub.sample
+      @computer.place(sub, sub_array) 
 
-    # maybe need to refactor the computer method for 
-    # ship placement in the Board class? 
+     turn
   end
+
+  def turn
+    puts "=============COMPUTER BOARD============="
+    puts @computer.render
+
+    puts "==============PLAYER BOARD=============="
+    puts @player_1.render(true)
+
+    puts "Enter the coordinate for your shot:"
+    shot = gets
+
+    if shot 
+
 end
