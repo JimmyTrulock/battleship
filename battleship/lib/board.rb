@@ -82,12 +82,12 @@ class Board
   end
 
   def overlaping?(coordinates)
-    if @cells.any?{|key, value| key == coordinates && value.empty == false}
-      true
-  else 
-    false
+      if @cells.any?{|key, value| key == coordinates && value.empty == false}
+        true
+    else 
+      false
+    end
   end
-end
 
   def valid_placement?(ship, coordinates)
     if overlaping?(coordinates) == false
@@ -145,5 +145,15 @@ end
     else 
       "you have fired upon this coordinate already, please select another coordinate"
     end
+  end
+
+  def possible_cruiser_placement
+    placement = @possible_cruiser.sample
+    placement
+  end
+
+  def possible_sub_placement
+    placement = @possible_sub.sample
+    placement
   end
 end

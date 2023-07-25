@@ -4,11 +4,11 @@ require './lib/cell'
 
 class Game
 
-  #   def initialize
-  #     @player_1 = Board.new
-  #     @computer = Board.new
-  #   end
-  # end
+  attr_accessor :player_1, :computer, :cruiser, :sub, :cpu_cruiser, :cpu_sub
+
+    # def initialize
+      
+    # end
 
   def main_menu
     puts "Welcome to BATTLESHIP
@@ -19,7 +19,7 @@ class Game
     if answer == "p" || answer == "P"
       puts "Ok! Let's play!"
       setup
-      game_placement
+      player_1_placement
 
     elsif answer == "q" || answer ==  "Q"
       puts "Ok, see you next time."
@@ -38,7 +38,7 @@ class Game
   end
 
 
-  def game_placement
+  def player_1_placement
     puts "I have laid out my ships on the grid.
     You now need to lay out your two ships.
     The Cruiser is three units long and the Submarine is two units long.
@@ -60,7 +60,7 @@ class Game
     end
 
 
-  @player_1.render(true)
+    @player_1.render(true)
 
     puts "Enter the squares for the Sub (2 spaces)"
 
@@ -73,19 +73,35 @@ class Game
       puts "Invalid squares, please select again"
     end
     @player_1.render(true)
+    computer_placement
   end
 
+  def computer_placement
 
+    loop do
+      cruiser_array = @computer.possible_cruiser_placement
 
-  cruiser_array = @computer
-  require'pry';binding.pry
-  sub_array = @computer
+        if @computer.valid_placement?(@cpu_cruiser, cruiser_array) == true 
+          @computer.place(@cpu_cruiser, cruiser_array)
+          break
+        
+      end
+    end
 
-    @computer.place(cruiser, cruiser_array)
-    until overlaping?(sub_array) == true
-      sub_array = @computer.possible_sub.sample
-      @computer.place(sub, sub_array) 
-      turn
+    #don't forget to take out the true when done testing
+    @computer.render(true)
+
+    loop do
+      sub_array = @computer.possible_sub_placement
+
+        if @computer.valid_placement?(@cpu_sub, sub_array) == true 
+          @computer.place(@cpu_sub, sub_array)
+          break
+        
+      end
+    end
+    #don't forget to remove true
+    @computer.render(true)
   end
 end
 
