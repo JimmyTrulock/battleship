@@ -126,4 +126,24 @@ end
     puts @grid
     @grid
   end
+
+  def attack(coordinate)
+    if coordinate.ship == nil && coordinate.fired_upon == false
+      "Your shot on #{coordinate} was a miss."
+      coordinate.fired_upon
+      coordinate.render
+    elsif coordinate.ship != nil && coordinate.fired_upon == false
+      "Your shot on #{coordinate} was a hit."
+      coordinate.fired_upon
+      coordinate.ship.hit
+      coordinate.render
+    elsif coordinate.ship != nil && coordinate.fired_upon == false && coordinate.ship.sunk == true
+      "Your shot on #{coordinate} sunk a ship."
+      coordinate.fired_upon
+      coordinate.ship.hit
+      coordinate.render
+    else 
+      "you have fired upon this coordinate already, please select another coordinate"
+    end
+  end
 end
