@@ -79,7 +79,6 @@ class Board
 
   def valid_coordinate?(coordinate)
     @cells.any?{|key, value| key == coordinate}
-
   end
 
   def overlaping?(coordinates)
