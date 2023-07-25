@@ -77,6 +77,7 @@ class Game
     puts "Enter the coordinate for your shot:"
     shot = gets
 
-    if shot 
+    if valid_coordinate(shot) == true
+       shot.
 
 end
