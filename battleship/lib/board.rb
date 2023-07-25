@@ -22,7 +22,7 @@ class Board
     "D2" => Cell.new("D2"),
     "D3" => Cell.new("D3"),
     "D4" => Cell.new("D4")
-  }
+    }
     @possible_cruiser = [
       ["A1","B1","C1"], 
       ["B1","C1","D1"],
@@ -93,9 +93,9 @@ end
     if overlaping?(coordinates) == false
       if coordinates.length == ship.length
         if ship.length == 3
-          possible_cruiser.any? {|array| array == coordinates}
+          @possible_cruiser.any? {|array| array == coordinates}
         elsif ship.length == 2
-          possible_sub.any? {|array| array ==coordinates}
+          @possible_sub.any? {|array| array == coordinates}
         end
       else 
         false
@@ -104,6 +104,7 @@ end
   end
 
   def place(ship, coords)
+    # require'pry';binding.pry
    coords.each do |coord|
     @cells.each.any? do |key, value| 
       if key == coord  
