@@ -3,16 +3,10 @@ require './lib/ship'
 require './lib/cell'
 
 class Game
-
   attr_accessor :player_1, :computer, :cruiser, :sub, :cpu_cruiser, :cpu_sub
-
-    # def initialize
-      
-    # end
 
   def main_menu
     loop do
-
       puts "Welcome to BATTLESHIP
       Enter p to play. Enter q to quit."
 
@@ -22,7 +16,6 @@ class Game
         puts "Ok! Let's play!"
         setup
         player_1_placement
-        
       elsif answer == "q" || answer ==  "Q"
         puts "Ok, see you next time."
         exit()
@@ -41,7 +34,6 @@ class Game
     @cpu_sub = Ship.new("Submarine", 2)
   end
 
-
   def player_1_placement
     puts "I have laid out my ships on the grid.
     You now need to lay out your two ships.
@@ -53,7 +45,6 @@ class Game
     D . . . .
     Enter the squares for the Cruiser (3 spaces)"
 
-
     loop do
       player_placment = gets.chomp.upcase.split
     
@@ -61,9 +52,9 @@ class Game
         @player_1.place(@cruiser, player_placment)
         break
       end
+
       puts "Invalid squares, please select again"
     end
-
 
     @player_1.render(true)
 
@@ -75,14 +66,15 @@ class Game
         @player_1.place(@sub, player_placment_2)
         break
       end
+
       puts "Invalid squares, please select again"
     end
+
     @player_1.render(true)
     computer_placement
   end
 
   def computer_placement
-
     cruiser_array = @computer.possible_cruiser_placement
     
     if @computer.valid_placement?(@cpu_cruiser, cruiser_array) == true 
@@ -93,13 +85,13 @@ class Game
     
     loop do
       sub_array = @computer.possible_sub_placement
-        if @computer.valid_placement?(@cpu_sub, sub_array) == true 
-          if sub_array.none? { |coord| cruiser_array.include?(coord) }
-          @computer.place(@cpu_sub, sub_array)
-          break
-          end
-        else 
-        end
+
+      if @computer.valid_placement?(@cpu_sub, sub_array) == true 
+        if sub_array.none? { |coord| cruiser_array.include?(coord) }
+        @computer.place(@cpu_sub, sub_array)
+        break
+        end 
+      end
     end
     #don't forget to remove true
     @computer.render(true)
@@ -117,22 +109,14 @@ class Game
     loop do
       shot = gets.chomp.upcase
     
-    # confirm_shot = ""
-    # if @computer.valid_coordinate?(shot) == true
-    #   confirm_shot = @computer.cells[shot]
-    # end
-      # @computer.attack(confirm_shot)
-      # puts @computer.render(true)
       if @computer.valid_coordinate?(shot) == true
         confirm_shot = @computer.cells[shot]
         if confirm_shot.fired_upon == false 
         @computer.attack(confirm_shot)
         break
-        
         end
-     
-      else
-        puts "Invalid coordinate, please place a coordinate within the map."
+      else 
+        puts "Invalid coordinate, please place a new coordinate within the map."
       end
     end
 
@@ -146,6 +130,7 @@ class Game
   def computer_turn
     loop do
       shot = @player_1.cells.keys.sample
+      
       if @player_1.valid_coordinate?(shot) == true
         confirm_shot = @player_1.cells[shot]
         if confirm_shot.fired_upon == false 
