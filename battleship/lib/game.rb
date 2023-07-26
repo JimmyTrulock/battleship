@@ -83,22 +83,15 @@ class Game
 
         if @computer.valid_placement?(@cpu_cruiser, cruiser_array) == true 
           @computer.place(@cpu_cruiser, cruiser_array)
-          break
-        
-      end
-    end
-
-    #don't forget to take out the true when done testing
-    @computer.render(true)
-
-    loop do
+        end
+      #don't forget to take out the true when done testing
+      @computer.render(true)
       sub_array = @computer.possible_sub_placement
-
         if @computer.valid_placement?(@cpu_sub, sub_array) == true 
           @computer.place(@cpu_sub, sub_array)
           break
-        
-      end
+        else 
+        end
     end
     #don't forget to remove true
     @computer.render(true)
@@ -116,13 +109,25 @@ class Game
       shot = gets.chomp
       
       confirm_shot = ""
-      if @player_1.valid_coordinate?(shot) == true
+      if @computer.valid_coordinate?(shot) == true
         confirm_shot = @computer.cells[shot]
       end
       @computer.attack(confirm_shot)
       puts @computer.render(true)
       break
     end
+    computer_turn
   end
 
+  def computer_turn
+    loop do
+      shot = @player_1.cells.keys.sample
+      if @player_1.valid_coordinate?(shot) == true
+        confirm_shot = @player_1.cells[shot]
+      end
+      @player_1.cpu_attack(confirm_shot)
+      break
+    end
+    turn
+  end
 end

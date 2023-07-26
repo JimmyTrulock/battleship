@@ -128,15 +128,33 @@ class Board
 
   def attack(coordinate) 
     if coordinate.ship == nil && coordinate.fired_upon == false
-      puts "Your shot on #{coordinate} was a miss."
+      puts "Your shot on #{coordinate.coordinate} was a miss."
       coordinate.fire_upon
       coordinate.render
     elsif coordinate.ship != nil && coordinate.fired_upon == false
-      puts "Your shot on #{coordinate} was a hit."
+      puts "Your shot on #{coordinate.coordinate} was a hit."
       coordinate.fire_upon
       coordinate.render
     elsif coordinate.ship != nil && coordinate.ship.sunk == true
-      puts "Your shot on #{coordinate} sunk a ship."
+      puts "Your shot on #{coordinate.coordinate} sunk a ship."
+      coordinate.fire_upon
+      coordinate.render
+    else 
+      puts "you have fired upon this coordinate already, please select another coordinate"
+    end
+  end
+
+  def cpu_attack(coordinate) 
+    if coordinate.ship == nil && coordinate.fired_upon == false
+      puts "My shot on #{coordinate.coordinate} was a miss."
+      coordinate.fire_upon
+      coordinate.render
+    elsif coordinate.ship != nil && coordinate.fired_upon == false
+      puts "My shot on #{coordinate.coordinate} was a hit."
+      coordinate.fire_upon
+      coordinate.render
+    elsif coordinate.ship != nil && coordinate.ship.sunk == true
+      puts "My shot on #{coordinate.coordinate} sunk a ship."
       coordinate.fire_upon
       coordinate.render
     else 
