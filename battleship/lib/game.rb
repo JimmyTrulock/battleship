@@ -102,25 +102,27 @@ class Game
     end
     #don't forget to remove true
     @computer.render(true)
+    turn
   end
+
+  def turn
+    loop do
+      puts "=============COMPUTER BOARD============="
+      puts @computer.render(true)
+
+      puts "==============PLAYER BOARD=============="
+      puts @player_1.render(true)
+      puts "Enter the coordinate for your shot:"
+      shot = gets.chomp
+      
+      confirm_shot = ""
+      if @player_1.valid_coordinate?(shot) == true
+        confirm_shot = @computer.cells[shot]
+      end
+      @computer.attack(confirm_shot)
+      puts @computer.render(true)
+      break
+    end
+  end
+
 end
-
-#   def turn
-#     loop do
-#       puts "=============COMPUTER BOARD============="
-#       puts @computer.render(true)
-
-#       puts "==============PLAYER BOARD=============="
-#       puts @player_1.render(true)
-
-#       puts "Enter the coordinate for your shot:"
-#       shot = gets
-
-#       if valid_coordinate(shot) == true
-#           shot.attack
-#       else
-#         false
-#       end
-#     end
-#   end
-# end

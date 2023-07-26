@@ -116,34 +116,31 @@ class Board
   end
 
   def render(view = false)
-    row_1 = " 1 2 3 4 \n"
+    row_1 = "  1 2 3 4 \n"
     row_2 = "A #{@cells["A1"].render(view)} #{@cells["A2"].render(view)} #{@cells["A3"].render(view)} #{@cells["A4"].render(view)} \n"
     row_3 = "B #{@cells["B1"].render(view)} #{@cells["B2"].render(view)} #{@cells["B3"].render(view)} #{@cells["B4"].render(view)} \n"
     row_4 = "C #{@cells["C1"].render(view)} #{@cells["C2"].render(view)} #{@cells["C3"].render(view)} #{@cells["C4"].render(view)} \n"
     row_5 = "D #{@cells["D1"].render(view)} #{@cells["D2"].render(view)} #{@cells["D3"].render(view)} #{@cells["D4"].render(view)} \n"
     
     @grid = row_1 + row_2 + row_3 + row_4 + row_5
-    puts @grid
     @grid
   end
 
-  def attack(coordinate)
+  def attack(coordinate) 
     if coordinate.ship == nil && coordinate.fired_upon == false
-      "Your shot on #{coordinate} was a miss."
-      coordinate.fired_upon
+      puts "Your shot on #{coordinate} was a miss."
+      coordinate.fire_upon
       coordinate.render
     elsif coordinate.ship != nil && coordinate.fired_upon == false
-      "Your shot on #{coordinate} was a hit."
-      coordinate.fired_upon
-      coordinate.ship.hit
+      puts "Your shot on #{coordinate} was a hit."
+      coordinate.fire_upon
       coordinate.render
-    elsif coordinate.ship != nil && coordinate.fired_upon == false && coordinate.ship.sunk == true
-      "Your shot on #{coordinate} sunk a ship."
-      coordinate.fired_upon
-      coordinate.ship.hit
+    elsif coordinate.ship != nil && coordinate.ship.sunk == true
+      puts "Your shot on #{coordinate} sunk a ship."
+      coordinate.fire_upon
       coordinate.render
     else 
-      "you have fired upon this coordinate already, please select another coordinate"
+      puts "you have fired upon this coordinate already, please select another coordinate"
     end
   end
 
