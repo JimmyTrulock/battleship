@@ -78,7 +78,7 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-    @cells.any?{|key, value| key == coordinate}
+    @cells.any?{|key, value| key == coordinate && value.fired_upon == false}
   end
 
   def overlaping?(coordinates)
@@ -153,7 +153,7 @@ class Board
       puts "My shot on #{coordinate.coordinate} was a hit."
       coordinate.fire_upon
       coordinate.render
-    elsif coordinate.ship != nil && coordinate.ship.sunk == true
+    elsif coordinate.ship != nil && coordinate.ship.sunk? == true
       puts "My shot on #{coordinate.coordinate} sunk a ship."
       coordinate.fire_upon
       coordinate.render
